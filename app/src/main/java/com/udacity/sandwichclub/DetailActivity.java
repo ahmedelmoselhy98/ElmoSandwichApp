@@ -23,9 +23,9 @@ public class DetailActivity extends AppCompatActivity {
     private static final int DEFAULT_POSITION = -1;
     private ImageView sandwitchImageIv;
     private TextView placeOfOriginTextView;
-    private TextView alsoKnownAsTextView = null;
+    private TextView alsoKnownAsTextView;
     private TextView descriptionTextView;
-    private TextView ingredientsTextView = null;
+    private TextView ingredientsTextView;
 
     Sandwich sandwich;
     @Override
@@ -60,10 +60,6 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        Picasso.with(this)
-                .load("https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Grilled_ham_and_cheese_014.JPG/800px-Grilled_ham_and_cheese_014.JPG")
-                .into(sandwitchImageIv);
-        Log.e(TAG,"Image Url\t"+sandwich.getImage());
         setTitle(sandwich.getMainName());
         populateUI();
 
@@ -75,6 +71,13 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI() {
+        if (TextUtils.isEmpty(sandwich.getImage()));
+        {
+            Picasso.with(this)
+                    .load("https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Grilled_ham_and_cheese_014.JPG/800px-Grilled_ham_and_cheese_014.JPG")
+                    .into(sandwitchImageIv);
+            Log.e(TAG, "Image Url\t" + sandwich.getImage());
+        }
         List<String> alsoKnownAs = sandwich.getAlsoKnownAs();
         //Check if the Arrary is Empty
         if (alsoKnownAs.size() > 0){
