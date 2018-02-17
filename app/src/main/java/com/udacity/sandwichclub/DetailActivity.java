@@ -1,11 +1,15 @@
 package com.udacity.sandwichclub;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,19 +42,16 @@ public class DetailActivity extends AppCompatActivity {
         alsoKnownAsTextView = findViewById(R.id.also_known_tv);
         descriptionTextView = findViewById(R.id.description_tv);
         ingredientsTextView = findViewById(R.id.ingredients_tv);
-
         Intent intent = getIntent();
         if (intent == null) {
             closeOnError();
         }
-
         int position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
         if (position == DEFAULT_POSITION) {
             // EXTRA_POSITION not found in intent
             closeOnError();
             return;
         }
-
         String[] sandwiches = getResources().getStringArray(R.array.sandwich_details);
         String json = sandwiches[position];
         sandwich = JsonUtils.parseSandwichJson(json);
@@ -59,23 +60,20 @@ public class DetailActivity extends AppCompatActivity {
             closeOnError();
             return;
         }
-
         setTitle(sandwich.getMainName());
         populateUI();
-
     }
-
     private void closeOnError() {
         finish();
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
-
     private void populateUI() {
         if (TextUtils.isEmpty(sandwich.getImage()));
         {
             Picasso.with(this)
-                    .load("https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Grilled_ham_and_cheese_014.JPG/800px-Grilled_ham_and_cheese_014.JPG")
+                    .load(sandwich.getImage())
                     .into(sandwitchImageIv);
+
             Log.e(TAG, "Image Url\t" + sandwich.getImage());
         }
         List<String> alsoKnownAs = sandwich.getAlsoKnownAs();
@@ -89,7 +87,6 @@ public class DetailActivity extends AppCompatActivity {
         }
         }else
             alsoKnownAsTextView.setText("-----");
-
         List<String> ingredients = sandwich.getIngredients();
         //Check if the Arrary is Empty
         if (ingredients.size()>0){
@@ -101,15 +98,11 @@ public class DetailActivity extends AppCompatActivity {
         }
         }else
             ingredientsTextView.setText("-----");
-
         if (!TextUtils.isEmpty(sandwich.getPlaceOfOrigin())){
             placeOfOriginTextView.setText(sandwich.getPlaceOfOrigin());
         }else placeOfOriginTextView.setText("-----");
         if (!TextUtils.isEmpty(sandwich.getDescription())){
             descriptionTextView.setText(sandwich.getDescription());
         }else descriptionTextView.setText("-----");
-
     }
-
-
 }
