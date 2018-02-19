@@ -53,7 +53,7 @@ public class JsonUtils {
                     sandwich.setPlaceOfOrigin(PLACE_OF_ORIGIN);
                 }
                 //getting DESCRIPTION for sandwitch
-                if (root.has("description")) { // chenk the decription node is exist
+                if (root.has("description")) {  // chenk the decription node is exist
                     DESCRIPTION = root.optString("description");
                     Log.e(TAG, DESCRIPTION);
                     sandwich.setDescription(DESCRIPTION);
