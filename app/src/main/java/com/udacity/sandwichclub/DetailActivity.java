@@ -1,15 +1,11 @@
 package com.udacity.sandwichclub;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +13,6 @@ import com.squareup.picasso.Picasso;
 import com.udacity.sandwichclub.model.Sandwich;
 import com.udacity.sandwichclub.utils.JsonUtils;
 
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -31,7 +26,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView descriptionTextView;
     private TextView ingredientsTextView;
 
-    Sandwich sandwich;
+    private Sandwich sandwich;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +41,7 @@ public class DetailActivity extends AppCompatActivity {
         if (intent == null) {
             closeOnError();
         }
+
         int position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
         if (position == DEFAULT_POSITION) {
             // EXTRA_POSITION not found in intent
@@ -68,8 +64,7 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
     private void populateUI() {
-        if (TextUtils.isEmpty(sandwich.getImage()));
-        {
+        if (!TextUtils.isEmpty(sandwich.getImage())){
             Picasso.with(this)
                     .load(sandwich.getImage())
                     .into(sandwitchImageIv);

@@ -10,12 +10,10 @@ import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
 
-    String [] json;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        json = getResources().getStringArray(R.array.sandwich_details);
         String[] sandwiches = getResources().getStringArray(R.array.sandwich_names);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, sandwiches);
